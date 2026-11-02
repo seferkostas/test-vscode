@@ -11,6 +11,11 @@ const models = [
     change: '+8.6%',
     history: [38, 42, 40, 48, 46, 54, 51, 58, 55, 62, 60, 67, 63, 72, 69],
     forecast: [74, 77, 75, 84],
+    predictions: [
+      { date: 'Jun 16, 2025', item: 'Wireless headphones', value: '1,284 units', confidence: '96%' },
+      { date: 'Jun 16, 2025', item: 'Smart home devices', value: '946 units', confidence: '93%' },
+      { date: 'Jun 17, 2025', item: 'Audio accessories', value: '782 units', confidence: '91%' },
+    ],
   },
   {
     name: 'Revenue Predictor',
@@ -22,6 +27,11 @@ const models = [
     change: '+5.2%',
     history: [35, 39, 43, 40, 48, 45, 54, 53, 58, 55, 64, 61, 68, 66, 74],
     forecast: [75, 79, 81, 87],
+    predictions: [
+      { date: 'Jun 16, 2025', item: 'North America ARR', value: '$284.6k', confidence: '95%' },
+      { date: 'Jun 16, 2025', item: 'Enterprise renewals', value: '$96.2k', confidence: '92%' },
+      { date: 'Jun 17, 2025', item: 'New subscriptions', value: '$41.8k', confidence: '90%' },
+    ],
   },
   {
     name: 'Traffic Estimator',
@@ -33,6 +43,11 @@ const models = [
     change: '+12.4%',
     history: [42, 48, 44, 53, 49, 56, 61, 57, 64, 62, 69, 66, 76, 72, 79],
     forecast: [82, 78, 88, 91],
+    predictions: [
+      { date: 'Jun 16, 2025', item: 'Organic sessions', value: '48,920 visits', confidence: '93%' },
+      { date: 'Jun 16, 2025', item: 'Paid campaign traffic', value: '18,340 visits', confidence: '90%' },
+      { date: 'Jun 17, 2025', item: 'Returning visitors', value: '12,780 visits', confidence: '88%' },
+    ],
   },
 ];
 
@@ -40,12 +55,6 @@ const ranges = [
   { label: '7D', points: 7 },
   { label: '30D', points: 10 },
   { label: '90D', points: 15 },
-];
-
-const forecasts = [
-  { date: 'Jun 16, 2025', item: 'Wireless headphones', value: '1,284 units', confidence: '96%' },
-  { date: 'Jun 16, 2025', item: 'Smart home devices', value: '946 units', confidence: '93%' },
-  { date: 'Jun 17, 2025', item: 'Audio accessories', value: '782 units', confidence: '91%' },
 ];
 
 function Icon({ name, size = 18 }) {
@@ -259,7 +268,7 @@ function App() {
             <div className="chart-legend">
               <span><i className="legend-line actual-line" />Actual</span>
               <span><i className="legend-line forecast-line" />Forecast</span>
-              <span><i className="legend-band" />Confidence interval</span>
+              <span><i className="legend-band" />Forecast region</span>
               <span className="chart-updated">Updated 2 minutes ago</span>
             </div>
           </section>
@@ -274,7 +283,7 @@ function App() {
                 <table>
                   <thead><tr><th>DATE</th><th>ITEM</th><th>FORECAST</th><th>CONFIDENCE</th></tr></thead>
                   <tbody>
-                    {forecasts.map((forecast) => (
+                    {model.predictions.map((forecast) => (
                       <tr key={forecast.item}>
                         <td>{forecast.date}</td>
                         <td className="item-cell"><span className="item-avatar">{forecast.item.slice(0, 1)}</span>{forecast.item}</td>
